@@ -9,3 +9,4 @@
 5. Run `createService.sh` to create service and expose the app to us.
 6. Run `scale.sh <someNumber>` to scale the deployment in action.
 7. Run `updateDeployment.sh <versionNumber>` to update the deployment.
+8. Run `delete.sh` to remove all imperative commands.
