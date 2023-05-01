@@ -1,1 +1,1 @@
-docker build -t kub-first-app .
+docker build -t kub-first-app:${1} .
