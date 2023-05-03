@@ -26,6 +26,5 @@ spec:
             - containerPort: 3000
       volumes:
         - name: story-volume
-          hostPath:
-            path: /data
-            type: DirectoryOrCreate
+          persistentVolumeClaim:
+            claimName: host-pvc
