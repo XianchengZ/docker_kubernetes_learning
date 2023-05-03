@@ -15,6 +15,16 @@ spec:
       containers:
         - name: story-nodejs
           image: xianchengz/kube_data_example_stories
+          # env:
+          #   - name: STORY_FOLDER
+          #     value: 'story'
+          # alternatively use config map
+          env:
+            - name: STORY_FOLDER
+              valueFrom:
+                configMapKeyRef:
+                  name: data-store-env
+                  key: folder
           volumeMounts:
             - mountPath: /app/story
               name: story-volume
@@ -24,6 +34,7 @@ spec:
               cpu: '500m'
           ports:
             - containerPort: 3000
+          imagePullPolicy: Always
       volumes:
         - name: story-volume
           persistentVolumeClaim:
