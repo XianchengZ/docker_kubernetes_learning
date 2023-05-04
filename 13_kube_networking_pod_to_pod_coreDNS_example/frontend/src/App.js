@@ -1,35 +1,35 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react'
 
-import './App.css';
-import TaskList from './components/TaskList';
-import NewTask from './components/NewTask';
+import './App.css'
+import TaskList from './components/TaskList'
+import NewTask from './components/NewTask'
 
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([])
 
   const fetchTasks = useCallback(function () {
-    fetch('http://192.168.99.100:32140/tasks', {
+    fetch('/api/tasks', {
       headers: {
-        'Authorization': 'Bearer abc'
-      }
+        Authorization: 'Bearer abc',
+      },
     })
       .then(function (response) {
-        return response.json();
+        return response.json()
       })
       .then(function (jsonData) {
-        setTasks(jsonData.tasks);
-      });
-  }, []);
+        setTasks(jsonData.tasks)
+      })
+  }, [])
 
   useEffect(
     function () {
-      fetchTasks();
+      fetchTasks()
     },
     [fetchTasks]
-  );
+  )
 
   function addTaskHandler(task) {
-    fetch('http://192.168.99.100:32140/tasks', {
+    fetch('/api/tasks', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -38,12 +38,12 @@ function App() {
       body: JSON.stringify(task),
     })
       .then(function (response) {
-        console.log(response);
-        return response.json();
+        console.log(response)
+        return response.json()
       })
       .then(function (resData) {
-        console.log(resData);
-      });
+        console.log(resData)
+      })
   }
 
   return (
@@ -56,7 +56,7 @@ function App() {
         <TaskList tasks={tasks} />
       </section>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App

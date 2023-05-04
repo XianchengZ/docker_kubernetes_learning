@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: xianchengz/kube-demo-frontend
+          env:
+            - name: AUTH_ADDRESS
+              value: 'auth-service.default'
+            - name: PORT
+              value: '5000'
+          resources:
+            limits:
+              memory: '128Mi'
+              cpu: '500m'
+          ports:
+            - containerPort: 8080
+          imagePullPolicy: Always
