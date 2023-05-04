@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: task-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tasks
+  template:
+    metadata:
+      labels:
+        app: tasks
+    spec:
+      containers:
+        - name: tasks
+          image: xianchengz/kube-demo-task
+          env:
+            - name: AUTH_ADDRESS
+              value: 'auth-service.default'
+            - name: PORT
+              value: '5000'
+            - name: TASKS_FOLDER
+              value: 'tasks'
+          resources:
+            limits:
+              memory: '128Mi'
+              cpu: '500m'
+          ports:
+            - containerPort: 8000
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /app/tasks
+              name: task-volume
+      volumes:
+        - name: task-volume
+          persistentVolumeClaim:
+            claimName: host-pvc
